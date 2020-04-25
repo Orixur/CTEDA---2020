@@ -33,7 +33,12 @@ class ArbolGeneral(object):
         return self.root != None and not self.childs
 
     def height(self) -> int:
-        pass
+        if self.isLeaf:
+            return 0 # Si quisiera contar por nodos y no por aristas, debería devolver 1 cuando encuentro una arista
+        heights = []
+        for c in self.childs:
+            heights.append(c.height())
+        return 1 + max(heights)
     
     def level(self) -> int:
         pass

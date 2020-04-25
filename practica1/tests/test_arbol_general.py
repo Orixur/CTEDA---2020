@@ -74,3 +74,21 @@ class ArbolGeneralTest(unittest.TestCase):
         root_node, tree = self.set_tree_with_node()
 
         self.assertTrue(tree.isLeaf)
+
+    def test_tree_height_equal_the_distance_to_the_farest_leaf_counting_edges(self):
+        node_1 = NodoGeneral('1')
+        tree = ArbolGeneral(node_1)
+
+        node_2 = NodoGeneral('2')
+        node_3 = NodoGeneral('3')
+        node_4 = NodoGeneral('4')
+        node_5 = NodoGeneral('5')
+        node_6 = NodoGeneral('6')
+        
+        node_1.add_child(node_2)
+        node_1.add_child(node_3)
+        node_2.add_child(node_4)
+        node_4.add_child(node_5)
+        node_3.add_child(node_6)
+        
+        self.assertEqual(tree.height(), 3)
