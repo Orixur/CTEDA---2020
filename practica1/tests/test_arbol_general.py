@@ -43,3 +43,24 @@ class ArbolGeneralTest(unittest.TestCase):
         tree_childs = tree.childs
         self.assertIsInstance(tree.childs[0], ArbolGeneral)
         self.assertIsInstance(tree.childs[1], ArbolGeneral)
+
+    def test_can_allocate_new_node_to_root_childs_list(self):
+        root_node, tree = self.set_tree_with_node()
+
+        root_node.add_child(NodoGeneral('new-node'))
+        nodes_of_sub_trees = [tree.root for tree in tree.childs]
+        self.assertListEqual(root_node.childs, nodes_of_sub_trees)
+
+        new_tree_child = ArbolGeneral(NodoGeneral('other-new-node'))
+        tree.add_child(new_tree_child)
+        nodes_of_sub_trees = [tree.root for tree in tree.childs]
+        self.assertListEqual(root_node.childs, nodes_of_sub_trees)
+
+    def test_can_delete_a_child(self):
+        root_node, tree = self.set_tree_with_node()
+
+        tree_to_delete = ArbolGeneral(NodoGeneral('delete-me'))
+        tree.add_child(tree_to_delete)
+        tree.delete_child(tree_to_delete)
+
+        self.assertListEqual([], tree.childs)
