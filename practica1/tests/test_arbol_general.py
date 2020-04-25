@@ -20,3 +20,26 @@ class ArbolGeneralTest(unittest.TestCase):
         root_data = tree.root_data
 
         self.assertEqual(root_node.data, root_data)
+
+    def test_can_retrieve_root_sub_trees(self):
+        root_node, tree = self.set_tree_with_node()
+
+        expected_sub_trees = []
+        for temp_data in ['nodo-1', 'nodo-2', 'nodo-3']:
+            temp_node = NodoGeneral(temp_data)
+           
+            root_node.add_child(temp_node)
+            expected_sub_trees.append(temp_node)
+        nodes_of_sub_trees = [tree.root for tree in tree.childs]
+        
+        self.assertListEqual(expected_sub_trees, nodes_of_sub_trees)
+
+    def test_childs_of_tree_returns_root_childs_as_sub_trees(self):
+        root_node, tree = self.set_tree_with_node()
+
+        root_node.add_child(NodoGeneral('nodo-1'))
+        root_node.add_child(NodoGeneral('nodo-2'))
+
+        tree_childs = tree.childs
+        self.assertIsInstance(tree.childs[0], ArbolGeneral)
+        self.assertIsInstance(tree.childs[1], ArbolGeneral)
