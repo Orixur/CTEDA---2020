@@ -8,6 +8,9 @@ class ArbolGeneralTest(unittest.TestCase):
         root_node = NodoGeneral(data="root_node")
         tree = ArbolGeneral(root=root_node)
         return root_node, tree
+
+    def test_trees_can_be_created_without_root(self):
+        tree = ArbolGeneral()
     
     def test_general_tree_can_allocate_root_node_only_on_init(self):
         root_node, tree = self.set_tree_with_node()

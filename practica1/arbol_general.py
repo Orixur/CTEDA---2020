@@ -3,7 +3,7 @@ from typing import List
 from .nodo_general import NodoGeneral
 
 class ArbolGeneral(object):
-    def __init__(self, root: NodoGeneral):
+    def __init__(self, root: NodoGeneral = None):
         self._root = root
 
     @property
