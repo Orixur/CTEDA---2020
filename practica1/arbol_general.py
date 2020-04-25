@@ -23,3 +23,17 @@ class ArbolGeneral(object):
 
     def delete_child(self, tree_child: 'ArbolGeneral'):
         self.root.childs.remove(tree_child.root)
+
+    @property
+    def isEmpty(self) -> bool:
+        return self.root == None
+
+    @property
+    def isLeaf(self) -> bool:
+        return self.root != None and not self.childs
+
+    def height(self) -> int:
+        pass
+    
+    def level(self) -> int:
+        pass

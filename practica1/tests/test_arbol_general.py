@@ -11,6 +11,8 @@ class ArbolGeneralTest(unittest.TestCase):
 
     def test_trees_can_be_created_without_root(self):
         tree = ArbolGeneral()
+
+        self.assertTrue(tree.isEmpty)
     
     def test_general_tree_can_allocate_root_node_only_on_init(self):
         root_node, tree = self.set_tree_with_node()
@@ -67,3 +69,8 @@ class ArbolGeneralTest(unittest.TestCase):
         tree.delete_child(tree_to_delete)
 
         self.assertListEqual([], tree.childs)
+
+    def test_tree_root_can_be_leaf(self):
+        root_node, tree = self.set_tree_with_node()
+
+        self.assertTrue(tree.isLeaf)
