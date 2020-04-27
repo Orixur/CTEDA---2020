@@ -62,24 +62,24 @@ class ArbolGeneral(object):
         """
             Esta función encontrará la distancia entre la Raiz y el Dato provisto como parámetro. El calculo se realiza contando arista.
         """
-        matching_tree = self.include(data=data)
-        if not matching_tree:
+        if not self.include(data=data):
             return
-        if matching_tree == self:
+        if self.root_data == data:
             return 0
         q = Cola()
         q.put(self.root)
+        q.put(None)
         level = 0
         while not q.isEmpty:
             current_node = q.get()
             if current_node is None:
                 level += 1
+                q.put(None) # Sentinel value, marca de fin de nivel
                 continue
             elif current_node.data == data:
                 break
             for child in current_node.childs:
                 q.put(child)
-            q.put(None) # Sentinel value, marca de fin de nivel
         
         return level
 
