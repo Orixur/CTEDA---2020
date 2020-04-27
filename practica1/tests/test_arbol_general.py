@@ -143,3 +143,10 @@ class ArbolGeneralTest(unittest.TestCase):
         tree = self.build_big_tree()
 
         self.assertEqual(tree.width(), 3)
+
+    def test_ejercicio5_return_less_quantity_per_node(self):
+        tree = self.build_big_tree()
+
+        min_quantity = tree.ejercicio5(quantity=1200)
+
+        self.assertEqual(min_quantity, 200)

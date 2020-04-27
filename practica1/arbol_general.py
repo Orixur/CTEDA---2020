@@ -83,7 +83,10 @@ class ArbolGeneral(object):
         
         return level
 
-    def width(self):
+    def width(self) -> int:
+        """
+            Se encarga de mapear la cantidad de nodos por nivel, y devolver la mayor cantidad. Eso determina el ancho del árbol.
+        """
         if self.isLeaf:
             return 1
         q = Cola()
@@ -106,3 +109,13 @@ class ArbolGeneral(object):
             node_counter += 1
         
         return max(width_map.values())
+
+    def ejercicio5(self, quantity) -> int:
+        if self.isLeaf:
+            return quantity
+        
+        quantities = []
+        for c in self.childs:
+            quantities.append(c.ejercicio5(quantity=quantity / len(self.childs)))
+
+        return min(quantities)
