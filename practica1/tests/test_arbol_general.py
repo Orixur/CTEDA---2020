@@ -38,7 +38,7 @@ class ArbolGeneralTest(unittest.TestCase):
         node_6 = NodoGeneral('6')
         node_7 = NodoGeneral('7')
         node_8 = NodoGeneral('8')
-        node_8 = NodoGeneral('9')
+        node_9 = NodoGeneral('9')
         
         node_1.add_child(node_2)
         node_1.add_child(node_3)
@@ -138,3 +138,8 @@ class ArbolGeneralTest(unittest.TestCase):
         tree = self.build_tree()
 
         self.assertEqual(tree.level(data='5'), 3)
+
+    def test_width_of_tree_equal_max_q_of_nodes_per_level(self):
+        tree = self.build_big_tree()
+
+        self.assertEqual(tree.width(), 3)

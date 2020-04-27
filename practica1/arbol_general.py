@@ -82,3 +82,27 @@ class ArbolGeneral(object):
             q.put(None) # Sentinel value, marca de fin de nivel
         
         return level
+
+    def width(self):
+        if self.isLeaf:
+            return 1
+        q = Cola()
+        q.put(self.root)
+        q.put(None)
+        level, node_counter = 0, 0
+        width_map = {}
+        while not q.isEmpty:
+            current_node = q.get()
+            if current_node is None:
+                width_map[level] = node_counter
+                level += 1
+                node_counter = 0
+                if q.isEmpty:
+                    break
+                q.put(None) # Sentinel value, marca de fin de nivel
+                continue
+            for child in current_node.childs:
+                q.put(child)
+            node_counter += 1
+        
+        return max(width_map.values())
