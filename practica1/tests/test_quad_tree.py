@@ -45,4 +45,4 @@ class QuadTreeTest(unittest.TestCase):
         ])
 
         pixel_count_result = tree.pixel_count(size=1024, color='negro')
-        self.assertEqual(pixel_count_result, 448)
+        self.assertEqual(pixel_count_result, 44)
