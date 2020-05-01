@@ -74,6 +74,8 @@ class ArbolGeneral(object):
             current_node = q.get()
             if current_node is None:
                 level += 1
+                if q.isEmpty:
+                    break
                 q.put(None) # Sentinel value, marca de fin de nivel---> Se debe verificar que la cola contenga mas elementos por procesar, en caso de no haberlos no hay que hacer un put
                 continue
             elif current_node.data == data:
