@@ -1,3 +1,5 @@
+from typing import List
+
 from .binary_node import BinaryNode
 from practica1.cola import Cola
 
@@ -18,13 +20,13 @@ class BinaryTree(object):
         return self.root.data
 
     @property
-    def leftChild(self):
+    def leftChild(self) -> 'BinaryTree':
         if self.root.leftChild is None:
             return None
         return BinaryTree(self.root.leftChild)
         
     @property
-    def rightChild(self):
+    def rightChild(self) -> 'BinaryTree':
         if self.root.rightChild is None:
             return None
         return BinaryTree(self.root.rightChild)
@@ -44,14 +46,14 @@ class BinaryTree(object):
             self.root.rightChild = new_child.root
 
     @property
-    def isLeaf(self):
+    def isLeaf(self) -> bool:
         return self.root is not None and self.root.rightChild is None and self.root.leftChild is None
 
     @property
-    def isEmpty(self):
+    def isEmpty(self) -> bool:
         return self.root == None
 
-    def inorder(self):
+    def inorder(self) -> List[int]:
         if not self.isEmpty and self.isLeaf:
             return [self.root_data]
         traverse = []
@@ -61,7 +63,7 @@ class BinaryTree(object):
 
         return traverse
 
-    def preorder(self):
+    def preorder(self) -> List[int]:
         if not self.isEmpty and self.isLeaf:
             return [self.root_data]
         traverse = []
@@ -71,7 +73,7 @@ class BinaryTree(object):
 
         return traverse
     
-    def postorder(self):
+    def postorder(self) -> List[int]:
         if not self.isEmpty and self.isLeaf:
             return [self.root_data]
         traverse = []
@@ -81,9 +83,9 @@ class BinaryTree(object):
 
         return traverse
 
-    def level_traverse(self):
+    def level_traverse(self) -> (List[int], int):
         if not self.isEmpty and self.isLeaf:
-            return self.root_data
+            return [self.root_data], 1
         q = Cola()
         q.put(self.root)
         q.put(None)
@@ -105,7 +107,7 @@ class BinaryTree(object):
 
         return traverse, level
 
-    def count_leafs(self):
+    def count_leafs(self) -> int:
         if self.isEmpty:
             return 0
         if self.isLeaf:
@@ -114,3 +116,28 @@ class BinaryTree(object):
         counter += self.leftChild.count_leafs()
         counter += self.rightChild.count_leafs()
         return counter
+
+    def traverse_between_levels(self, n: int, m: int) -> List[int]:
+        if not self.isEmpty and self.isLeaf:
+            return [self.root_data] if n <= 1 <= m else None
+        q = Cola()
+        q.put(self.root)
+        q.put(None)
+        level = 1
+        traverse = []
+        while not q.isEmpty:
+            current_node = q.get()
+            if current_node is None:
+                level += 1
+                if q.isEmpty:
+                    break
+                q.put(None)
+                continue
+            if n <= level <= m:
+                traverse.append(current_node.data)
+            if current_node.leftChild is not None:
+                q.put(current_node.leftChild)
+            if current_node.rightChild is not None:
+                q.put(current_node.rightChild)
+
+        return traverse

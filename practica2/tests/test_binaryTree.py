@@ -88,3 +88,9 @@ class BinaryTreeTest(unittest.TestCase):
         tree = self.build_mid_tree() # [1, 2, 3, 4, 5, 6, 7]
 
         self.assertEqual(tree.count_leafs(), 4)
+
+    def test_tree_can_traverse_between_levels(self):
+        tree = self.build_mid_tree() # [1, 2, 3, 4, 5, 6, 7]
+
+        traverse = tree.traverse_between_levels(n=3, m=4)
+        self.assertEqual(traverse, [4, 5, 6, 7])
