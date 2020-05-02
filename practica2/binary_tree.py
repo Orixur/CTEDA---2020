@@ -104,3 +104,13 @@ class BinaryTree(object):
                 q.put(current_node.rightChild)
 
         return traverse, level
+
+    def count_leafs(self):
+        if self.isEmpty:
+            return 0
+        if self.isLeaf:
+            return 1
+        counter = 0
+        counter += self.leftChild.count_leafs()
+        counter += self.rightChild.count_leafs()
+        return counter

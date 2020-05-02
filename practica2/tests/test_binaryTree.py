@@ -83,3 +83,8 @@ class BinaryTreeTest(unittest.TestCase):
         traverse, level = tree.level_traverse()
         self.assertListEqual(traverse, [1, 2, 3, 4, 5, 6, 7])
         self.assertEqual(level, 4)
+
+    def test_tree_can_count_all_leafs(self):
+        tree = self.build_mid_tree() # [1, 2, 3, 4, 5, 6, 7]
+
+        self.assertEqual(tree.count_leafs(), 4)
