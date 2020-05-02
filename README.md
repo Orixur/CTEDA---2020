@@ -9,6 +9,10 @@ Para ejecutar los tests, situandose en el directorio raiz, ejecutar el siguiente
 ````bash
 $ python -m unittest discover
 ````
+Si quiere ejecutar los tests para cada practica individual, solo debe mencionar el directorio al final del comando (siempre situando la consola en la raiz del directorio):
+````bash
+$ python -m unittest discover practicaX
+````
 ## ¿Por qué testing?
 Para realizar las practicas se va a poner en practica las metodología TDD (Test Driven-Development).
 ## Estructura de los tests
