@@ -12,6 +12,7 @@ class BinarySearchTree(BinaryTree):
     def add(self, elemento):
         """
             Este método deberá implementar la lógica de insertado de un árbol BST:
+                - El elemento debe aparecer una sola vez en la estructura
                 - Si no hay raiz, el nodo a insertar se vuelve raiz
                 - En caso de que haya raiz, se comienza la inserción por ahí
                 - Siempre se comparará por si es mayor o menor a la raiz del árbol actual
@@ -24,6 +25,8 @@ class BinarySearchTree(BinaryTree):
         """
         if self.isEmpty:
             self.root = BinaryNode(elemento)
+        if self.searchValue(data=elemento):
+            return False
         current = self
         while not current.isLeaf:  # Cuando termina en una hoja
             if elemento < current.root_data:
@@ -52,6 +55,8 @@ class BinarySearchTree(BinaryTree):
             if current is not None:
                 if data == current.root_data:
                     return True
-                cola.put(current.leftChild)
-                cola.put(current.rightChild)
-        return False            
+                if data < current.root_data:
+                    cola.put(current.leftChild)
+                else:
+                    cola.put(current.rightChild)
+        return False

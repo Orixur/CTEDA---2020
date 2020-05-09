@@ -45,6 +45,13 @@ class BinarySearchTreeTest(unittest.TestCase):
         root_left_child_left_child = tree.root.leftChild.leftChild
         self.assertEqual(root_left_child_left_child.rightChild.data, 2)
 
+    def test_cannot_add_a_repeated_value(self):
+        tree = self.make_BTS()
+
+        res = tree.add(5)
+
+        self.assertFalse(res)
+
     def test_tree_can_search_for_a_value(self):
         tree = self.make_BTS()
 
@@ -58,3 +65,14 @@ class BinarySearchTreeTest(unittest.TestCase):
         res = tree.searchValue(data=10000000)
 
         self.assertFalse(res)
+
+    def test_all_traversals_works_properly(self):
+        tree = self.make_BTS()
+
+        inorder = tree.inorder()
+        preorder = tree.preorder()
+        postorder = tree.postorder()
+
+        self.assertListEqual(inorder, [1,2,3,4,5,6,10,12])
+        self.assertListEqual(preorder, [5,3,1,2,4,10,6,12])
+        self.assertListEqual(postorder, [2,1,4,3,6,12,10,5])

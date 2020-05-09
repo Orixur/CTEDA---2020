@@ -57,9 +57,11 @@ class BinaryTree(object):
         if not self.isEmpty and self.isLeaf:
             return [self.root_data]
         traverse = []
-        traverse += self.leftChild.inorder()
+        if self.leftChild is not None:
+            traverse += self.leftChild.inorder()
         traverse += [self.root_data]
-        traverse += self.rightChild.inorder()
+        if self.rightChild is not None:
+            traverse += self.rightChild.inorder()
 
         return traverse
 
@@ -68,8 +70,10 @@ class BinaryTree(object):
             return [self.root_data]
         traverse = []
         traverse += [self.root_data]
-        traverse += self.leftChild.preorder()
-        traverse += self.rightChild.preorder()
+        if self.leftChild is not None:
+            traverse += self.leftChild.preorder()
+        if self.rightChild is not None:
+            traverse += self.rightChild.preorder()
 
         return traverse
     
@@ -77,8 +81,10 @@ class BinaryTree(object):
         if not self.isEmpty and self.isLeaf:
             return [self.root_data]
         traverse = []
-        traverse += self.leftChild.postorder()
-        traverse += self.rightChild.postorder()
+        if self.leftChild is not None:
+            traverse += self.leftChild.postorder()
+        if self.rightChild is not None:
+            traverse += self.rightChild.postorder()
         traverse += [self.root_data]
 
         return traverse
