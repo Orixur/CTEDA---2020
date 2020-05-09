@@ -94,3 +94,28 @@ class BinaryTreeTest(unittest.TestCase):
 
         traverse = tree.traverse_between_levels(n=3, m=4)
         self.assertEqual(traverse, [4, 5, 6, 7])
+
+    def test_exercise_5_aritmetic_results(self):
+        root = BinaryNode('-')
+        tree = BinaryTree(root)
+        node_2 = BinaryTree(BinaryNode('+'))
+        node_3 = BinaryTree(BinaryNode('+'))
+        node_4 = BinaryTree(BinaryNode('A'))
+        node_5 = BinaryTree(BinaryNode('B'))
+        node_6 = BinaryTree(BinaryNode('*'))
+        node_7 = BinaryTree(BinaryNode('E'))
+        node_8 = BinaryTree(BinaryNode('C'))
+        node_9 = BinaryTree(BinaryNode('D'))
+
+        tree.leftChild = node_2
+        tree.rightChild = node_3
+        node_2.leftChild = node_4
+        node_2.rightChild = node_5
+        node_3.leftChild = node_6
+        node_3.rightChild = node_7
+        node_6.leftChild = node_8
+        node_6.rightChild = node_9
+
+        print(tree.preorder())
+        print(tree.inorder())
+        print(tree.postorder())
