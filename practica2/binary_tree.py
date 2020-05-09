@@ -123,7 +123,7 @@ class BinaryTree(object):
         counter += self.rightChild.count_leafs()
         return counter
 
-    def traverse_between_levels(self, n: int, m: int) -> List[int]:
+    def traverse_between_levels(self, n: int, m: int, instance: bool = False) -> List[int]:
         if not self.isEmpty and self.isLeaf:
             return [self.root_data] if n <= 1 <= m else None
         q = Cola()
@@ -140,7 +140,10 @@ class BinaryTree(object):
                 q.put(None)
                 continue
             if n <= level <= m:
-                traverse.append(current_node.data)
+                if not instance:
+                    traverse.append(current_node.data)
+                else:
+                    traverse.append(current_node)
             if current_node.leftChild is not None:
                 q.put(current_node.leftChild)
             if current_node.rightChild is not None:
