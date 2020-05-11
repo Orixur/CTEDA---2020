@@ -116,6 +116,6 @@ class BinaryTreeTest(unittest.TestCase):
         node_6.leftChild = node_8
         node_6.rightChild = node_9
 
-        print(tree.preorder())
-        print(tree.inorder())
-        print(tree.postorder())
+        # print(tree.preorder())
+        # print(tree.inorder())
+        # print(tree.postorder())
