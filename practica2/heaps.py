@@ -6,7 +6,8 @@ class MinHeap(BinaryTree):
     def __init__(self, root: BinaryNode = None):
         self._root = root
 
-    def from_list(self, data: list):
+    @staticmethod
+    def from_list(data: list):
         if not data:
             return  # No data provided
         nodes_with_childs = int(len(data) / 2)
@@ -33,4 +34,4 @@ class MinHeap(BinaryTree):
             if current.rightChild is not None and right <= nodes_with_childs:
                 cola.put([right, current.rightChild])
         
-        self.root = root
+        return MinHeap(root)
