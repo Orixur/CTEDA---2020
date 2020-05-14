@@ -1,6 +1,6 @@
 import unittest
 
-from practica2.heaps import MinHeap
+from practica2.heaps import MinHeap, HeapMin
 
 class MinHeapTest(unittest.TestCase):
     def test_can_create_heap_from_list(self):
@@ -68,3 +68,42 @@ class MinHeapTest(unittest.TestCase):
         self.assertListEqual(heap.data, [45, 48, 52, 54, 55])
         heap.insert(43)
         self.assertListEqual(heap.data, [43, 48, 45, 54, 55, 52])
+
+class HeapMinTest(unittest.TestCase):
+    def test_heap_can_instantiate_with_filter_down(self):
+        heap = HeapMin([50,52,41,54,46])
+
+        self.assertListEqual(heap.data, [41, 46, 50, 54, 52])
+
+    def test_heap_can_insert_and_reorder_values(self):
+        heap = HeapMin()
+        heap.insert(50)
+        self.assertListEqual(heap.data, [50])
+        heap.insert(52)
+        self.assertListEqual(heap.data, [50, 52])
+        heap.insert(41)
+        self.assertListEqual(heap.data, [41, 52, 50])
+        heap.insert(54)
+        self.assertListEqual(heap.data, [41, 52, 50, 54])
+        heap.insert(46)
+        self.assertListEqual(heap.data, [41, 46, 50, 54, 52])
+
+    def test_heap_can_filter_down_on_min_delete(self):
+        heap = MinHeap()
+        heap.insert(50)
+        self.assertListEqual(heap.data, [50])
+        heap.insert(52)
+        self.assertListEqual(heap.data, [50, 52])
+        heap.insert(41)
+        self.assertListEqual(heap.data, [41, 52, 50])
+        heap.insert(54)
+        self.assertListEqual(heap.data, [41, 52, 50, 54])
+        heap.insert(46)
+        self.assertListEqual(heap.data, [41, 46, 50, 54, 52])
+
+        heap.deleteMin()
+        self.assertListEqual(heap.data, [46, 52, 50, 54])
+        heap.deleteMin()
+        self.assertListEqual(heap.data, [50, 52, 54])
+        heap.deleteMin()
+        self.assertListEqual(heap.data, [52, 54])
