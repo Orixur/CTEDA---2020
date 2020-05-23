@@ -109,7 +109,9 @@ class TreeAVL:
         if self.root.balance > 1:  # se desbalanceo el sub-árbol izquierdo
             if self.root.leftChild.balance < 0:
                 # Rotación a izquierda
+                self.leftChild.left_rotation()
                 # Rotación a derecha
+                # self.right_rotation()
                 pass
             else:
                 # Rotación a derecha
