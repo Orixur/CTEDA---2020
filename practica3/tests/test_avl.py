@@ -19,12 +19,22 @@ class TreeAVLTest(unittest.TestCase):
         self.assertEqual(tree.search(5).root.left_h, 2)
         self.assertEqual(tree.search(4).root.left_h, 1)
 
-    def test_balance_when_insert_new_node(self):
+    def test_balance_with_single_right_rotation_on_unblanced_insertion(self):
         tree = TreeAVL()
         
         tree.add(3)
         tree.add(2)
         tree.add(1)
+
+        traverse, n = tree.level_traverse()
+        self.assertListEqual(traverse, [2,1,3])
+
+    def test_balance_with_single_left_rotation_on_unblanced_insertion(self):
+        tree = TreeAVL()
+        
+        tree.add(1)
+        tree.add(2)
+        tree.add(3)
 
         traverse, n = tree.level_traverse()
         self.assertListEqual(traverse, [2,1,3])

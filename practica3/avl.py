@@ -115,7 +115,7 @@ class TreeAVL:
                 # Rotación a derecha
                 self.right_rotation()
         elif self.root.balance < -1:  # se desbalanceo el sub-árbol derecho
-            if self.root.leftChild.balance > 0:
+            if self.root.rightChild.balance > 0:
                 # Rotación a derecha
                 # Rotación a izquierda
                 pass
@@ -131,6 +131,15 @@ class TreeAVL:
         self.root = b
         b.rightChild = a
         a.leftChild = aux
+    
+    def left_rotation(self):
+        a = self.root
+        b = self.root.rightChild
+        aux = b.leftChild
+
+        self.root = b
+        b.leftChild = a
+        a.rightChild = aux
 
     def updateHeight(self):
         if self.isLeaf:
