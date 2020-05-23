@@ -109,39 +109,41 @@ class TreeAVL:
         if self.root.balance > 1:  # se desbalanceo el sub-árbol izquierdo
             if self.root.leftChild.balance < 0:
                 # Rotación a izquierda
-                self.leftChild.left_rotation()
+                self.leftChild = self.leftChild.left_rotation()
                 # Rotación a derecha
-                # self.right_rotation()
-                pass
+                self.right_rotation()
             else:
                 # Rotación a derecha
                 self.right_rotation()
         elif self.root.balance < -1:  # se desbalanceo el sub-árbol derecho
             if self.root.rightChild.balance > 0:
                 # Rotación a derecha
+                self.rightChild = self.rightChild.right_rotation()
                 # Rotación a izquierda
-                pass
+                self.left_rotation()
             else:
                 # Rotación a izquierda
                 self.left_rotation()
     
     def right_rotation(self):
         a = self.root
-        b = self.root.leftChild
+        b = a.leftChild
         aux = b.rightChild
 
         self.root = b
         b.rightChild = a
         a.leftChild = aux
+        return self.root
     
     def left_rotation(self):
         a = self.root
-        b = self.root.rightChild
+        b = a.rightChild
         aux = b.leftChild
 
         self.root = b
         b.leftChild = a
         a.rightChild = aux
+        return self.root
 
     def updateHeight(self):
         if self.isLeaf:
@@ -150,10 +152,10 @@ class TreeAVL:
         else:
             if self.leftChild:
                 self.leftChild.updateHeight()
-                self.root.left_h = self.leftChild.root.left_h + 1
+                self.root.left_h = max(self.leftChild.root.left_h, self.leftChild.root.right_h) + 1
             if self.rightChild:
                 self.rightChild.updateHeight()
-                self.root.right_h = self.rightChild.root.right_h + 1
+                self.root.right_h = max(self.rightChild.root.left_h, self.rightChild.root.right_h) + 1
 
     def level_traverse(self):
         if not self.isEmpty and self.isLeaf:
