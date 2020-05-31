@@ -82,9 +82,20 @@ class TreeAVL:
         if elemento < self.root_data:
             if self.leftChild:
                 res = self.leftChild.search(elemento)
-        elif elemento < self.root_data:
+        elif elemento > self.root_data:
             if self.rightChild:
                 res = self.rightChild.search(elemento)
+        return res
+
+    def search_parent(self, elemento):
+        if self.isLeaf:
+            return
+        if elemento == self.leftChild.root_data or elemento == self.rightChild.root_data:
+            return self
+        if elemento < self.root_data:
+            res = self.leftChild.search_parent(elemento)
+        if elemento > self.root_data:
+            res = self.rightChild.search_parent(elemento)
         return res
 
     def add(self, elemento):
@@ -103,26 +114,81 @@ class TreeAVL:
         self.updateHeight()
         self.balanceTree()
 
+    @staticmethod
+    def predecessor(tree):
+        z = tree.leftChild
+        while not z.rightChild is None:
+            z = z.rightChild
+        
+        return z.root
+
+    @staticmethod
+    def successor(tree):
+        z = tree.rightChild
+        while not z.leftChild is None:
+            z = z.leftChild
+        
+        return z.root
+
+    def delete(self, elemento):        
+        parent_of_element = self.search_parent(elemento)
+        if elemento < parent_of_element.root_data:
+            if parent_of_element.leftChild.isLeaf:
+                # Just delete
+                parent_of_element.leftChild = None
+            elif parent_of_element.leftChild.leftChild is not None and parent_of_element.leftChild.rightChild is None:
+                aux = parent_of_element.leftChild.leftChild.root
+                parent_of_element.leftChild = None
+                parent_of_element.leftChild = aux
+            elif parent_of_element.leftChild.leftChild is None and parent_of_element.leftChild.rightChild is not None:
+                aux = parent_of_element.leftChild.rightChild.root
+                parent_of_element.leftChild = None
+                parent_of_element.leftChild = aux
+            elif parent_of_element.leftChild.leftChild is not None and parent_of_element.leftChild.rightChild is not None:
+                # Como tiene 2 hijos, puedo tomar una de las siguientes opciones:
+                #   1. Hago un swap entre el mas grande del árbol izquierdo;
+                #   2. Hago un swap entre el mas chico del árbol derecho
+                predecessor = self.predecessor(parent_of_element.leftChild)
+                aux_right_of_delete = parent_of_element.leftChild.rightChild.root
+                predecessor.rightChild = aux_right_of_delete
+                parent_of_element.leftChild = predecessor
+        elif elemento > parent_of_element.root_data:
+            if parent_of_element.rightChild.isLeaf:
+                # Just delete
+                parent_of_element.rightChild = None
+            elif parent_of_element.rightChild.leftChild is not None and parent_of_element.rightChild.rightChild is None:
+                aux = parent_of_element.leftChild.leftChild.root
+                parent_of_element.rightChild = None
+                parent_of_element.rightChild = aux
+            elif parent_of_element.rightChild.leftChild is None and parent_of_element.rightChild.rightChild is not None:
+                aux = parent_of_element.rightChild.rightChild.root
+                parent_of_element.rightChild = None
+                parent_of_element.rightChild = aux
+            elif parent_of_element.rightChild.leftChild is not None and parent_of_element.rightChild.rightChild is not None:
+                # Como tiene 2 hijos, puedo tomar una de las siguientes opciones:
+                #   1. Hago un swap entre el mas grande del árbol izquierdo;
+                #   2. Hago un swap entre el mas chico del árbol derecho
+                predecessor = self.predecessor(parent_of_element.rightChild)
+                aux_right_of_delete = parent_of_element.rightChild.rightChild.root
+                predecessor.rightChild = aux_right_of_delete
+                parent_of_element.rightChild = predecessor
+        self.updateHeight()
+        self.balanceTree()
+
     def balanceTree(self):
         if self.isLeaf:
             return
         if self.root.balance > 1:  # se desbalanceo el sub-árbol izquierdo
             if self.root.leftChild.balance < 0:
-                # Rotación a izquierda
                 self.leftChild = self.leftChild.left_rotation()
-                # Rotación a derecha
                 self.right_rotation()
             else:
-                # Rotación a derecha
                 self.right_rotation()
         elif self.root.balance < -1:  # se desbalanceo el sub-árbol derecho
             if self.root.rightChild.balance > 0:
-                # Rotación a derecha
                 self.rightChild = self.rightChild.right_rotation()
-                # Rotación a izquierda
                 self.left_rotation()
             else:
-                # Rotación a izquierda
                 self.left_rotation()
     
     def right_rotation(self):
@@ -153,9 +219,13 @@ class TreeAVL:
             if self.leftChild:
                 self.leftChild.updateHeight()
                 self.root.left_h = max(self.leftChild.root.left_h, self.leftChild.root.right_h) + 1
+            else:
+                self.root.left_h = 0
             if self.rightChild:
                 self.rightChild.updateHeight()
                 self.root.right_h = max(self.rightChild.root.left_h, self.rightChild.root.right_h) + 1
+            else:
+                self.root.right_h = 0
 
     def level_traverse(self):
         if not self.isEmpty and self.isLeaf:
