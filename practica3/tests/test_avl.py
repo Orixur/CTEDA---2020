@@ -156,3 +156,13 @@ class TreeAVLTest(unittest.TestCase):
 
         traverse, n = tree.level_traverse()
         self.assertListEqual(traverse, [6,3,8,2,4,7,11])
+
+    def test_deletion_of_a_leaf_node_and_rebalance_case1(self):
+        tree = TreeAVL()
+
+        tree.add(6)
+        tree.add(3)
+        tree.add(10)
+        tree.add(4)
+        tree.add(2)
+        tree.search(1000)

@@ -82,9 +82,13 @@ class TreeAVL:
         if elemento < self.root_data:
             if self.leftChild:
                 res = self.leftChild.search(elemento)
+            else:
+                res = None
         elif elemento > self.root_data:
             if self.rightChild:
                 res = self.rightChild.search(elemento)
+            else:
+                res = None
         return res
 
     def search_parent(self, elemento):
